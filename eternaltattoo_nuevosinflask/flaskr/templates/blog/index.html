@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+{% block content %}
+    <div class="post-container">
+        {% for post in posts %}
+            <div class="post">
+                <a class="img-link" href="{{ url_for('blog.detail', id=post['id']) }}"></a>
+                <div class="post-header">
+                    <h1>{{ post['title'] }}</h1>
+                    <p class="body">{{ post['body'] }}</p>
+                </div>
+                {% if g.user['id'] == post["author_id"] %}
+                    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+                {% endif %}
+                <div class="about"><a href="{{ url_for('profile.view_profile', user_id=post.author_id) }}">@{{ post["username"] }}</a></div>
+                
+                {% if post['image_filename'] %}
+                    <script>
+                        var postimg = "{{ post['image_filename'] }}";
+                        var imgurl = "{{ url_for('images.get', filename='') }}" + postimg;
+                        var postElement = document.querySelector('.post:nth-of-type({{ loop.index }})');
+                        postElement.style.backgroundImage = "url(" + imgurl + ")";
+                    </script>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

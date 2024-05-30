@@ -1,0 +1,13 @@
+{% macro display_author_followers(user=user, followed=False) %}
+    {% if not followed %}
+        <form action="{{ url_for('followers.follow') }}" method="post">
+            <input type="hidden" name="profile_id" value="{{ user.id }}">
+            <button type="submit" class="btn-link">Follow</button>
+        </form>
+    {% else %}
+        <form action="{{ url_for('followers.unfollow') }}" method="post">
+            <input type="hidden" name="profile_id" value="{{ user.id }}">
+            <button type="submit" class="btn-link">Unfollow</button>
+        </form>
+    {% endif %}
+{% endmacro %}

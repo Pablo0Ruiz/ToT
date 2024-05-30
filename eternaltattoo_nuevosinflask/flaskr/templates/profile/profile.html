@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% from "followers/followers.html" import display_author_followers %}
+{% block content %}
+<div class="profile-info">
+    <div class="media">
+        <img class="account-img" src="{{ url_for('static', filename=img) }}"  enctype="multipart/form-data">
+        <div class="media-body">
+            <h2 class="account-heading">{{ g.user['username'] }}</h2>
+            <h3 class="follow-data">{{ followers|length }} Followers             {{0}} Following</h3>
+        </div>
+    </div>
+    <div class="edit-profile">
+        <button type="button" class="edit" onclick="openPopup()">Edit Profile</button>
+        <div class="popup" id="popup">
+            <button type="button" onclick="closePopup()">X</button>
+            <form method="POST" action="{{ url_for('profile.update_profile') }}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control form-control-lg" value="{{ g.user['username'] }}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile_pic">Change Profile Picture:</label>
+                    <input type="file" id="profile_pic" name="profile_pic" accept="image/*" class="form-control-file">
+                </div>
+                <button type="submit" class="save-profile">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="profile-posts">
+        <h2>Your Posts</h2>
+        <hr>
+        <div class="post-container">
+            {% for post in user_posts %}
+                <div class="post">
+                    <div class="post-header">
+                        <h1><a href="{{ url_for('blog.detail', id=post['id']) }}">{{ post['title'] }}</a></h1>
+                    </div>
+                    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+                    {% if post['image_filename'] %}
+                        <script>
+                            var postimg = "{{ post['image_filename'] }}";
+                            var imgurl = "{{ url_for('images.get', filename='') }}" + postimg;
+                            var postElement = document.querySelector('.post:nth-of-type({{ loop.index }})');
+                
+                            postElement.style.backgroundImage = "url(" + imgurl + ")";
+                        </script>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    let popup=document.getElementById('popup');
+    function openPopup(){
+        popup.classList.add("open-popup")
+    }
+    function closePopup(){
+        popup.classList.remove("open-popup")
+    }
+</script>
+{% endblock %}

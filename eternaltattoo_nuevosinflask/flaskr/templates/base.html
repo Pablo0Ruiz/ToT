@@ -1,0 +1,28 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Eternal  Tattoo</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+	<h1><a href="{{ url_for('index') }}">Eternal Tattoo</a></h1>
+	<form action="{{ url_for('search.filtered_posts') }}">
+		<input type="text" name="q" placeholder="Search" value="{{ request.args['q'] or '' }}">
+	</form>
+	<ul>
+		{% if g.user %}
+			<li><a href="{{url_for( 'profile.account' )}}">{{ g.user['username'] }}</a></li>
+			<li><a href="{{url_for('blog.create')}}">Create</a></li>
+			<li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>	
+		{% else %}
+			<li><a href="{{ url_for('auth.register') }}">Register</a></li>
+			<li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+		{% endif %}
+	</ul>
+</nav>
+<section class="content">
+	<header>
+		{% block header %}{% endblock %}
+	</header>
+	{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+	{% endfor %}
+	{% block content %}{% endblock %}
+</section>

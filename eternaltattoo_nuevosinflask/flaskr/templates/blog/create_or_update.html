@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="create_update">
+		<h1 class="edit-post">
+			{% block title %}
+					{% if not post %}
+						New Post
+					{% else %}
+						Edit "{{ post["title"] }}"
+					{% endif %}
+			{% endblock %}
+		</h1>
+		<form method="post" class="edit-form" enctype="multipart/form-data">
+			<label for="title">Title</label>
+			<input name="title" id="title"
+				value="{{ request.form['title'] or post['title'] }}" required>
+
+			<label for="body">Description</label>
+			<textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+
+			{% if not post['image_filename'] %}
+				<input type="file" name="image">
+			{% else %}
+				<div class="img">
+					<img class="post-image-preview" src="{{ url_for('images.get', filename=post['image_filename']) }}">
+				
+					<input type="checkbox" class="chkbx" name="delete-image" value=false>
+					<label for="delete-image">Delete Image?</label>
+				</div>
+			{% endif %}
+			
+			<input type="submit" class="save" value="Save">
+
+		</form>
+		{% if post %}
+		<form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+			<input class="danger" type="submit" value="Delete Post" onclick="return confirm('Are you sure?');">
+		</form>
+		{% endif %}
+
+		
+	</div>
+
+
+{% endblock %}

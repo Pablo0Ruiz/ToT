@@ -1,0 +1,809 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/*COLORS*/
+:root {
+	--white: #FFFFFF;
+	--gold: #d4af39;
+	--lightgray: #BFBFBF;
+	--mediumgray: #545454;
+	--darkgray: #131313;
+	--black: #000000;
+};
+
+html { font-family: Helvetica; background: var(--darkgray); scroll-behavior: smooth;}
+body { width: 100%vw; margin: 0;background: var(--darkgray);} /*if i add here margin top should work for all?*/
+a {text-decoration: none; 
+	color: var(--lightgray); 
+	border-radius: 15px}
+a:hover {
+	color: var(--white);
+	transition: .5s;
+	text-decoration: underline;
+	text-decoration-color: var(--gold);
+	text-decoration-thickness: 0.1em;
+	text-underline-offset: 0.7em;
+}
+nav {width: 95%; height: 50px; background: var(--darkgray); display: flex; gap: 5%;align-items: center; padding: 0 2rem; position: fixed; opacity: 80%;z-index: 5;}
+nav input {border-radius: 20px;height: 30px; width: 300px; background-color: var(--lightgray);}
+nav h1 { flex: auto; margin: 0; }
+nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
+nav ul  { display: flex; list-style: none; margin: 0; padding: 0;}
+nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; text-decoration: none;}
+.content { padding: 0 1rem 1rem; display: flex; flex-wrap: wrap;background: var(--darkgray)}
+.content > header { background: var(--darkgray); display: flex; align-items: left; }
+.content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
+.flash { margin: 1em 0; padding: 1em; background: var(--darkgray); border: 1px solid #377ba8; }
+
+/*POST IN MAIN PAGE*/
+.post-container {
+	display: grid;
+	justify-content: center; 
+	width: 80%;
+	grid-template-columns: repeat(auto-fit, 280px);
+	grid-auto-rows: min-content;
+	grid-gap: 0.3%; 
+	margin: 5% 0 15% 0;
+}
+.post {
+	grid-column: auto;
+	grid-auto-rows: minmax(280px, min-content);
+	width: 100%;
+	height: 280px;
+	border-radius: 5px; 
+	background-color: var(--black); 
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	background-repeat: no-repeat;
+	background-position: inherit;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+.post::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--black);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	border-radius: 5px; /* Match border-radius with .post */
+}
+
+.post:hover::before {
+	opacity: 0.5; /* Adjust opacity to desired level on hover */
+}
+
+.post > .img-link {
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+}
+.post > .img-link:hover + .post-header{
+	opacity: 1;
+}
+
+.post > .post-header {
+	position: absolute;
+	top: 2%;
+	width: 100%;
+	white-space: initial;
+	word-wrap: break-word;
+	transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	opacity: 0;
+	margin: 0 2% 0 2%;
+}
+
+.post > .post-header h1 {
+	color: var(--gold);
+}
+.post .about { 
+	color:  var(--lightgray); 
+	position: absolute; 
+	font-size: large;
+	width: 85%;
+	bottom: 2%;
+	z-index: 2;
+	word-wrap: break-word;
+}
+.post .body { 
+	white-space: pre-line; 
+	word-wrap: break-word;
+	color: #d5d5d5;
+	position: relative; 
+	max-width: 100%;
+	margin-right: 2%;
+}
+
+.post > .action {
+	position: absolute;
+	bottom: 2%;
+	right: 2%;
+	z-index: 2;
+	opacity: 1;
+	color: var(--lightgray);
+
+}
+
+.content:last-child { margin-bottom: 0; }
+.content form { margin: 1em 0; display: flex; flex-direction: column; }
+.content label { font-weight: bold; margin-bottom: 0.5em; }
+.content input, .content textarea { margin-bottom: 1em; border-radius: 10px; background-color: #636363;}
+.content textarea { min-height: 12em; resize: vertical; }
+input.danger { color: #cc2f2e; }
+input[type=submit] { align-self: start; min-width: 10em; }
+
+.content {display: flex;  
+	justify-content: center;
+	align-items: center;}
+	
+/*LOG IN PAGE*/ /*REGISTER PAGE*/
+
+.content .register-login {
+	width: 500px;
+	height: 500px;
+	background-image: linear-gradient(to bottom right, var(--mediumgray), var(--darkgray));
+	opacity: 0.8; /* Adjust opacity for desired effect */
+	background-color: var(--darkgray);
+	border-radius: 5px;
+	box-shadow: 15px 15px 20px var(--black);
+	position: absolute;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;;
+	align-items: center;
+	z-index: 1;
+	transition: 0.5s;
+	align-self: center;
+	margin-top: 10%;
+	font-family: Helvetica;
+
+}
+
+.register-login h1 {
+	font-size: 7em;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0; /* Reset margin */
+	margin-left: 1%;
+	padding: 0; /* Reset padding */
+	text-shadow: 1px 1px var(--mediumgray);
+	
+}
+
+.register-login label{
+	position: absolute;
+	font-size: 1em;
+	color: var(--lightgray);
+}
+
+.register-login label[for="username"] {
+	top: 45%; /* Position the first label vertically */
+}
+
+.register-login label[for="password"] {
+	top: 60%; /* Position the second label vertically */
+}
+
+.register-login input {
+	position: absolute;
+	width: 60%; /* Adjust padding and border */
+	padding: 8px;
+	margin-bottom: 15px;
+	border: 1px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+}
+
+.register-login input[type="username"] {
+	top: 52%;
+	background-color: var(--mediumgray) !important;/* IDK DOESNT WORK */
+}
+
+.register-login input[type="password"] {
+	top: 65%;
+	background-color: var(--mediumgray) !important;/* IDK DOESNT WORK */
+}
+
+.register-login input[type="submit"] {
+	top: 78%;
+	left: 20%;
+  background-color: var(--darkgray);
+  color: var(--gold);
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px; /* Add padding for better button appearance */
+  margin-top: 15px; /* Adjust margin as needed */
+  transition: .5s;
+}
+
+.register-login input[type="submit"]:hover::before {
+	transform: scale(1.1);
+  box-shadow: 0 0 15px var(--gold);
+  }
+
+.register-login input[type="submit"]:hover {
+	color: var(--gold);
+	box-shadow: 0 0 15px var(--gold);
+	text-shadow: 0 0 15px var(--gold);
+}
+
+/*LOG IN AFTER REGISTER PAGE*/
+.content .login2 {
+	width: 500px;
+	height: 500px;
+	background-image: linear-gradient(to top left, #3d3d3d, var(--darkgray));
+	opacity: 0.8; /* Adjust opacity for desired effect */
+	background-color: var(--darkgray);
+	border-radius: 5px;
+	margin-top: 40%;
+	box-shadow: -10px -10px 10px var(--black);
+	position: absolute;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;;
+	align-items: center;
+	z-index: 1;
+	transition: 0.5s;
+	align-self: center;
+	margin-top: 10%;
+  }
+
+.login2 h1 {
+	font-size: 8em;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0; /* Reset margin */
+	margin-left: 1%;
+	padding: 0; /* Reset padding */
+	text-shadow: -1px -1px var(--mediumgray);
+}
+
+.login2 label{
+	position: absolute;
+	font-size: 1em;
+	color: var(--lightgray);
+}
+
+.login2 label[for="username"] {
+	top: 45%; /* Position the first label vertically */
+}
+
+.login2 label[for="password"] {
+	top: 60%; /* Position the second label vertically */
+}
+
+.login2 input {
+	position: absolute;
+	width: 60%; /* Adjust padding and border */
+	padding: 8px;
+	margin-bottom: 15px;
+	border: 1px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+}
+
+.login2 input[type="username"] {
+	top: 52%;
+	background-color: var(--mediumgray) !important;/* IDK DOESNT WORK */
+}
+
+.login2 input[type="password"] {
+	top: 65%;
+	background-color: var(--mediumgray) !important;/* IDK DOESNT WORK */
+}
+
+.login2 input[type="submit"] {
+	top: 78%;
+	left: 20%;
+	background-color: var(--darkgray);
+	color: var(--gold);
+	border: none;
+	cursor: pointer;
+	padding: 10px 20px; /* Add padding for better button appearance */
+	margin-top: 15px; /* Adjust margin as needed */
+	transition: .5s;
+}
+
+.login2 input[type="submit"]:hover::before {
+	transform: scale(1.1);
+	box-shadow: 0 0 15px var(--gold);
+}
+
+.login2 input[type="submit"]:hover {
+	color: var(--gold);
+	box-shadow: 0 0 15px var(--gold);
+	text-shadow: 0 0 15px var(--gold);
+}
+
+/* LINES ANIMATED */
+.lines {
+	width: 105%;
+	height: 105vh;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	overflow: hidden;
+	top: -5%;
+	left: -5%;
+	z-index: 0;
+	/*
+	background-image: url('register-bg.jpeg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 50%;
+	*/
+	background-image: linear-gradient(to bottom right, var(--mediumgray), var(--darkgray));
+}
+.lines hr {
+	width: 120%;
+	border: none;
+	height: 0.5px;
+	background-color: var(--mediumgray);
+	position: absolute;
+}
+.login2 {
+	visibility: hidden;
+}
+
+
+
+/* Animation keyframes for moving lines around the window */
+@keyframes moveHorizontal1 {
+    0% { left: -50%; }
+    25% { left: -25%; }
+    50% { left: 0%; }
+    75% { left: 25%; }
+    100% { left: 50%; }
+}
+@keyframes moveHorizontal2 {
+    0% { right: -50%; }
+    25% { right: -25%; }
+    50% { right: 0%; }
+    75% { right: 25%; }
+    100% { right: 50%; }
+}
+/* Animation keyframes for moving lines vertically */
+@keyframes moveVertical1 {
+    0% { top: 0; }
+    25% { top: 25%; }
+    50% { top: 50%; }
+    75% { top: 75%; }
+    100% { top: 100%; }
+}
+@keyframes moveVertical2 {
+    0% { bottom: 0; }
+    25% { bottom: 25%; }
+    50% { bottom: 50%; }
+    75% { bottom: 75%; }
+    100% { bottom: 100%; }
+}
+/* Applying animations to each line with different speeds */
+.lines hr:nth-child(1) {
+    animation: moveVertical1 50s linear infinite;
+}
+
+.lines hr:nth-child(2) {
+    transform: rotate(90deg);
+    animation: moveHorizontal1 72s linear infinite;
+	background-color: var(--gold);
+}
+
+.lines hr:nth-child(3) {
+    animation: moveVertical2 85s linear infinite;
+	animation-delay: 5s;
+}
+
+.lines hr:nth-child(4) {
+    transform: rotate(90deg);
+    animation: moveHorizontal2 98s linear infinite;
+}
+
+.lines hr:nth-child(5) {
+    animation: moveVertical1 120s linear infinite;
+	animation-delay: 5s;
+}
+.lines hr:nth-child(6) {
+    animation: moveVertical1 110s linear infinite;
+	animation-delay: 25s;
+	background-color: var(--gold);
+}
+
+/* POST DETAIL */
+.post-detail {
+	max-width: 80%;
+	background-color: var(--darkgray);
+	display: grid;
+	border-radius: 25px;
+	margin: auto;
+	margin-top: 10em;
+	grid-gap: 10px;
+	grid-template-columns: repeat(15,1fr);
+	grid-template-rows: auto auto min-content;
+	box-shadow: 5px 2px 15px var(--black);
+}
+
+.post-detail > .post-image-container {
+	grid-column: 1 / 9;
+	grid-row: 1 / 4;
+}
+
+.post-image-container > .post-image {
+	width: 100%;
+	border-radius: 25px 0px 0px 25px;
+}
+
+.post-detail > .post-name {
+	font-size: 3em;
+	grid-column: 9 / 16;
+	grid-row: 1;
+	margin-top: 15px;
+	color: var(--gold);
+}
+.post-detail > .post-name > .about {
+	color: var(--mediumgray);
+	font-size: 0.3em;
+	font-style: italic;
+}
+
+.post-detail > .action {
+	grid-column: 16;
+	grid-row: 1;
+	text-align: center;
+	margin-right: 15px;
+	margin-top: 50%;
+}
+
+.post-detail > .description {
+	grid-column: 9 / 16;
+	grid-row: 2;
+	text-align: start;
+	color: var(--lightgray);
+	margin: 0;
+	font-size: 1.5em;
+	white-space: initial;
+	word-wrap: break-word;
+}
+
+.post-detail > .comment-container {
+	grid-column: 9 / 17;
+	grid-row: 3;
+	font-size: smaller;
+}
+.comment-container h2 {
+	color: var(--gold);
+}
+.comment-container > .comment {
+	display: flex;
+	width: 98%;
+}
+.comment a {
+	color: var(--mediumgray);
+}
+.comment a:hover {
+	color: var(--lightgray);
+}
+.comment > .about {
+	font-style: italic;
+	color: var(--mediumgray);
+	min-width: fit-content;
+	font-size: smaller;
+	align-self: flex-start;
+}
+.comment > .body {
+	font-size: small;
+	align-self: stretch;
+	color: var(--lightgray);
+}
+.comment form {
+	margin:0%;
+	align-self: flex-end;	
+}
+.comment form > .btn-link  {
+	color: var(--mediumgray);
+	transition: 0.5s;
+}
+.comment form > .btn-link:hover {
+	color: var(--lightgray);
+	cursor: pointer;
+}
+.comment-container > form {
+	display: grid;
+	grid-template-columns: 85% 13%;
+	grid-template-rows: 80% 20%;
+	background-color: var(--mediumgray);
+	margin-right: 15px;
+	border-radius: 15px;
+}
+.comment-container form textarea {
+	grid-column: 1/3;
+	grid-row: 1;
+	background-color: var(--mediumgray);
+	width: 100%;
+	height: 100%;
+	border: none;
+	padding: 0;
+	margin: 0;
+	margin-top: 5px;
+	margin-left: 5px;
+	outline: none;
+}
+
+.comment-container form > .send{
+	grid-row: 2;
+	grid-column: 2;
+	background-color: var(--mediumgray);
+	color: var(--lightgray);
+	font-size: large;
+	width: 100%;
+	height: 30px;
+	border-radius: 10px;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.post-detail > footer {
+	grid-column: 16;
+	grid-row: 2;
+	margin-right: 15px;
+	text-align: center;	
+	color: var(--lightgray);
+}
+
+.like-container > form > button{
+	font-size: 2em;
+	cursor: pointer;
+	color: var(--lightgray);
+}
+
+.like-container > form > .btn-link-liked{
+	font-size: 2em;
+	cursor: pointer;
+	color: var(--gold);
+	background-color: var(--darkgray);
+	border: none;
+}
+
+.like-container > form > button:hover{
+	font-size: 2em;
+	cursor: pointer;
+	color: var(--gold);
+}
+
+
+/* PROFILE */
+.profile-info {
+	margin-top: 8%;
+	display: block;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+}
+.profile-info > .media >.account-img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+.media > .media-body > .account-heading {
+	color: var(--gold);
+	font-size: 3em;
+	margin: 0.5em 0 0.5em 0;
+}
+.media > .media-body > .follow-data {
+	white-space: pre;
+	color: var(--lightgray);
+	font-size: 1em;
+	margin: 0.5em 0 0.5em 0;
+}
+
+.profile-posts h2 {
+	color: var(--lightgray);
+	text-align: center;
+}
+.profile-posts hr {
+	background-color: var(--mediumgray);
+	border: none;
+	height: 1px;
+}
+
+.popup {
+	background-color: var(--lightgray);
+	width: 40%;
+	height: 20%;
+	padding: 30px 30px 30px;
+	position: absolute;
+	left: 30%;
+	top: 30%;
+	transform: translate(-50% -50%) scale(0);
+	visibility: hidden;
+	transition: transform 0.4s, 0.4s;
+}
+.open-popup{
+	visibility: visible;
+	top: 30%;
+	transform: translate(-50% -50%) scale(1)
+}
+
+/* CREATE OR UPDATE */
+.create_update {
+	margin: auto;
+	margin-top: 10%;
+	width: 70%;
+	background-color: var(--darkgray);
+	display: inline-block;
+	box-shadow: 10px 10px 10px var(--black);
+	border-radius: 25px;
+	background-image: linear-gradient(to bottom right, #3d3d3d, var(--darkgray));
+}
+
+.create_update > .edit-post {
+	text-align: center;
+	color: var(--gold);
+}
+.create_update > .edit-form {
+	display: grid;
+	grid-template-columns: repeat(4, 25%);
+	grid-template-rows: 15px 10% 15px min-content min-content;
+	gap: 10px;
+	
+}
+.create_update > .edit-form > input[type=file] {
+	background-color: var(--lightgray);
+	grid-column: 1/3;
+	grid-row: 1/5;
+	width: 95%;
+	margin-left: 20px;
+}
+
+.create_update > .edit-form  label[for="title"] {
+	grid-column: 3/5;
+	grid-row: 1;
+	color: var(--lightgray);
+	margin-bottom: 0%;
+}
+.create_update > .edit-form  input[name="title"] {
+	grid-column: 3/5;
+	grid-row: 2;
+	font-size: larger;
+	background-color: var(--mediumgray);
+	outline: none;
+	border: none;
+	width: 90%;
+	height: 100%;
+	color: var(--lightgray);
+}
+.create_update > .edit-form  label[for="body"] {
+	grid-column: 3/5;
+	grid-row: 3;
+	color: var(--lightgray);
+	margin-bottom: 0%;
+}
+.create_update > .edit-form  textarea[name="body"] {
+	resize: none;
+	grid-column: 3/5;
+	grid-row: 4;
+	background-color: var(--mediumgray);
+	overflow: auto;
+	height: fit-content;
+	outline: none;
+	border: none;
+	width: 90%;
+	color: var(--lightgray);
+}
+.create_update > .edit-form > input[type=submit] {
+	grid-row: 5;
+	grid-column: 2/4;
+	justify-self: center;
+	align-items: center;
+	border: none;
+	background-color: var(--darkgray);
+	color: var(--gold);
+	cursor: pointer;
+	width: 20%;
+	height: 100%;
+	transition: .5s;
+}
+
+.edit-form > input[type="submit"]:hover::before {
+	transform: scale(1.1);
+  	box-shadow: 0 0 15px var(--gold);
+  }
+
+.edit-form >  input[type="submit"]:hover {
+	color: var(--gold);
+	box-shadow: 0 0 15px var(--gold);
+	text-shadow: 0 0 15px var(--gold);
+}
+
+.edit-form > .img {
+	display: inline-block;
+	grid-column: 1/3;
+	grid-row: 1/5;
+	width: 95%;
+	margin-left: 20px;
+	text-align: center;
+
+}
+.edit-form > .img > .post-image-preview {
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.comment header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 0.1rem;
+}
+.comment header .about {
+	color: slategray;
+	font-style: italic;
+}
+.comment header form {
+	display: inline;
+	height: 15px;
+	margin: 0;
+}
+.btn-link {
+	border: none;
+	color: #377ba8;
+	background: none;
+	display: inline;
+}
+
+
+/*chatrrom*/
+.message-box {
+	width: 80vh;
+	height: 80vh;
+	background-color: #636363;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.message-box .messages {
+	overflow-y: scroll;
+	flex: 1;
+	width: 100%;
+}
+
+.message-box .inputs {
+	padding: 10px;
+	display: flex;
+	position: relative;
+	bottom: 0%;
+}
+
+.message-box h2 {
+	text-align: center;
+}
+
+.message-box #message {
+	flex: 1;
+}
